@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Benoît Prioux
+ * Copyright 2013 Olivier Croisier
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.binout.restangular.server.rest.application;
 
-import net.binout.restangular.server.rest.resource.TodoListResource;
-import net.binout.restangular.server.rest.resource.TodoResource;
+import org.restlet.Application;
+import org.restlet.Restlet;
+import org.restlet.resource.Directory;
+import org.restlet.routing.Router;
 
-import javax.ws.rs.core.Application;
-import java.util.HashSet;
-import java.util.Set;
+public class RestangularApplication extends Application {
 
-public class TodoServiceApplication extends Application {
+    public RestangularApplication() {
+        setName("Restangular");
+        setDescription("RESTlet + AngularJS integration");
+    }
 
     @Override
-    public Set<Class<?>> getClasses() {
-        Set<Class<?>> rrcs = new HashSet<>();
-        rrcs.add(TodoResource.class);
-        rrcs.add(TodoListResource.class);
-        return rrcs;
+    public Restlet createInboundRoot() {
+        Directory directory = new Directory(getContext(), "clap://class/static/");
+        directory.setDeeplyAccessible(true);
+
+        Router router = new Router(getContext());
+        router.attach("/", directory);
+        return router;
     }
+
 }
