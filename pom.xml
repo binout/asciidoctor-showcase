@@ -34,6 +34,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <!-- Dependencies -->
         <version.lib.restlet>2.1.2</version.lib.restlet>
+        <version.lib.asciidoctor>0.1.4</version.lib.asciidoctor>
+
     </properties>
 
     <!-- ================================================================================ -->
@@ -95,6 +97,21 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <doclet>org.asciidoctor.Asciidoclet</doclet>
+                    <docletArtifact>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoclet</artifactId>
+                        <version>${version.lib.asciidoctor}</version>
+                    </docletArtifact>
+                </configuration>
             </plugin>
         </plugins>
     </build>

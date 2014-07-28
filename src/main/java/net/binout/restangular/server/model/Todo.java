@@ -16,6 +16,14 @@
 
 package net.binout.restangular.server.model;
 
+/**
+ * = Model : Todo, represents a task to do
+ *
+ * - +id+ : an unique identifier
+ * - +title+ : the title of the task to do
+ * - +description+ : the description of the task to do
+ * - +done+ : a boolean to indicate if a task is done(done=true) or not(done=false)
+ */
 public class Todo {
 
     private Long id;

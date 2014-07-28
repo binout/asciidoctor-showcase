@@ -21,14 +21,28 @@ import org.restlet.Server;
 import org.restlet.data.Protocol;
 import org.restlet.ext.jaxrs.JaxRsApplication;
 
+/**
+ * = Application launcher
+ *
+ * Main method parameters :
+ *
+ * - args[0] is the port used by application
+ *
+ * TIP : default port is +8000+
+ *
+ */
 public class RestangularComponent extends Component {
 
     public static void main(String[] args) throws Exception {
-        new RestangularComponent().start();
+        int port = 8000;
+        if (args != null && args[0] != null) {
+            port = Integer.parseInt(args[0]);
+        }
+        new RestangularComponent(port).start();
     }
 
-    public RestangularComponent() {
-        Server server = new Server(Protocol.HTTP, 8000);
+    public RestangularComponent(int port) {
+        Server server = new Server(Protocol.HTTP, port);
         getServers().add(server);
 
         getClients().add(Protocol.CLAP);
