@@ -19,10 +19,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.binout</groupId>
-    <artifactId>asciidoctor-showcase</artifactId>
+    <artifactId>restlet-jaxrs</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
-    <name>Asciidoctor showcase</name>
+    <name>Restlet+JaxRs</name>
 
     <!-- ================================================================================ -->
     <!-- Common properties -->
@@ -35,7 +35,6 @@
         <!-- Dependencies -->
         <version.lib.restlet>2.1.2</version.lib.restlet>
         <version.lib.asciidoctor>0.1.4</version.lib.asciidoctor>
-
     </properties>
 
     <!-- ================================================================================ -->
@@ -93,7 +92,7 @@
                                     <mainClass>net.binout.restangular.server.rest.application.RestangularComponent</mainClass>
                                 </transformer>
                             </transformers>
-                            <finalName>restangular-${project.version}</finalName>
+                            <finalName>restlet-jaxrs-${project.version}</finalName>
                         </configuration>
                     </execution>
                 </executions>

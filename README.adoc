@@ -3,7 +3,31 @@
 == Goal
 This project demonstrates how to use jaxrs extension of restlet.
 
+== Usage
+
+From the project root, run :
+
+[source]
+----
+mvn package
+----
+
+Maven will create an auto-executable jar named restlet-jaxrs-1.0.jar in the target subdirectory.
+
+The embedded web server can be run with :
+
+[source]
+----
+java -jar restlet-jaxrs-1.0.jar
+----
+The application is then available at : http://localhost:8000/web/index.html.
+
+You can change the default port with a main argument :
+
+[source]
+----
+java -jar restlet-jaxrs-1.0.jar 8080
+----
+
 == Thanks
 * Oliver Croisier for the base project : https://github.com/OlivierCroisier/restangular
-
-

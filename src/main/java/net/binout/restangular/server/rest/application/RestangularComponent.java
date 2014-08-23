@@ -35,7 +35,7 @@ public class RestangularComponent extends Component {
 
     public static void main(String[] args) throws Exception {
         int port = 8000;
-        if (args != null && args[0] != null) {
+        if (args != null && args.length == 1) {
             port = Integer.parseInt(args[0]);
         }
         new RestangularComponent(port).start();
@@ -52,7 +52,7 @@ public class RestangularComponent extends Component {
         jaxRsApplication.add(new TodoServiceApplication());
         getDefaultHost().attach("/rest", jaxRsApplication);
 
-        System.out.println("Server started on port 8000.");
-        System.out.println("Application is now available on http://localhost:8000/web/index.html");
+        System.out.println("Server started on port " + port);
+        System.out.println("Application is now available on http://localhost:"+port+"/web/index.html");
     }
 }
