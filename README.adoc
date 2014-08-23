@@ -1,10 +1,9 @@
-restlet-jaxrs
-====================
+= restlet-jaxrs
 
+== Goal
 This project demonstrates how to use jaxrs extension of restlet.
 
-Thanks to Oliver Croisier for the base project.
-
-https://github.com/OlivierCroisier/restangular
+== Thanks
+* Oliver Croisier for the base project : https://github.com/OlivierCroisier/restangular
 
 
