@@ -20,6 +20,7 @@ import net.binout.restangular.server.dao.TodoRepository;
 import net.binout.restangular.server.model.Todo;
 
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -28,7 +29,8 @@ import java.io.IOException;
 @Path("/todos/{todoId}")
 public class TodoResource {
 
-    private TodoRepository repository = TodoRepository.getInstance();
+    @Inject
+    private TodoRepository repository;
 
     @PathParam("todoId")
     private Long todoId;

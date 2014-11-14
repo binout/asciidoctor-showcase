@@ -35,6 +35,9 @@
         <!-- Dependencies -->
         <version.lib.restlet>2.1.2</version.lib.restlet>
         <version.lib.asciidoctor>0.1.4</version.lib.asciidoctor>
+        <version.lib.deltaspike>1.0.3</version.lib.deltaspike>
+        <version.lib.weld-se>1.1.19.Final</version.lib.weld-se>
+        <version.lib.cdi-api>1.1</version.lib.cdi-api>
     </properties>
 
     <!-- ================================================================================ -->
@@ -68,6 +71,46 @@
             <artifactId>org.restlet.ext.jaxrs</artifactId>
             <version>${version.lib.restlet}</version>
         </dependency>
+
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>${version.lib.cdi-api}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.deltaspike.core</groupId>
+            <artifactId>deltaspike-core-api</artifactId>
+            <version>${version.lib.deltaspike}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.deltaspike.core</groupId>
+            <artifactId>deltaspike-core-impl</artifactId>
+            <version>${version.lib.deltaspike}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.deltaspike.cdictrl</groupId>
+            <artifactId>deltaspike-cdictrl-api</artifactId>
+            <version>${version.lib.deltaspike}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.deltaspike.cdictrl</groupId>
+            <artifactId>deltaspike-cdictrl-weld</artifactId>
+            <version>${version.lib.deltaspike}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se</artifactId>
+            <version>${version.lib.weld-se}</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <!-- ================================================================================ -->
@@ -75,29 +118,8 @@
     <!-- ================================================================================ -->
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>2.1</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>net.binout.restangular.server.rest.application.RestangularComponent</mainClass>
-                                </transformer>
-                            </transformers>
-                            <finalName>restlet-jaxrs-${project.version}</finalName>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -114,4 +136,64 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>dist</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>appassembler-maven-plugin</artifactId>
+                        <version>1.1</version>
+                        <executions>
+                            <execution>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>assemble</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <binFileExtensions>
+                                <unix>.sh</unix>
+                            </binFileExtensions>
+                            <assembleDirectory>${project.build.directory}/dist</assembleDirectory>
+                            <extraJvmArguments>-Xms512m -Xmx1024m</extraJvmArguments>
+                            <generateRepository>false</generateRepository>
+                            <repositoryName>lib</repositoryName>
+                            <repositoryLayout>flat</repositoryLayout>
+                            <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
+                            <platforms>
+                                <platform>windows</platform>
+                                <platform>unix</platform>
+                            </platforms>
+                            <programs>
+                                <program>
+                                    <mainClass>net.binout.restangular.server.rest.application.RestangularServer</mainClass>
+                                </program>
+                            </programs>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <configuration>
+                            <descriptor>src/assembly/assembly.xml</descriptor>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

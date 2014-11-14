@@ -19,6 +19,7 @@ package net.binout.restangular.server.rest.resource;
 import net.binout.restangular.server.dao.TodoRepository;
 import net.binout.restangular.server.model.Todo;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
@@ -27,7 +28,8 @@ import java.util.List;
 @Path("/todos")
 public class TodoListResource {
 
-    private TodoRepository repository = TodoRepository.getInstance();
+    @Inject
+    private TodoRepository repository;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
